@@ -29,14 +29,7 @@
     $(document).ready(function(){var count=0;
 
     $("#reg").click(function(){
-     //  if($('#checkb').prop('checked')) // If user checked remember me check box
-     // {
-      
-     //            var emaill=document.getElementById("uname").value; // Get entered username or email
-     //            //  Set username on cookie when login form submit.
-     //            $.cookie("username", emaill, { expires: 7 });  // Remember username for 1 year.
-     //            alert($.cookie("username"));
-     // }
+
 
          
              if (document.getElementById("pwd").value=="" && document.getElementById("uname").value=="") 
@@ -143,27 +136,24 @@ function blockuser()
                     <div class="form-group">
                             <input class="form-control" id="uname" placeholder="Email" name="Email" type="text" required>
                         </div><br>
-              <!--           <div class="form-group">
-                            <input class="form-control" id="email" placeholder="E-mail" name="email" type="text">
+             
                         </div> -->
                         <div class="form-group">
                             <input class="form-control" id="pwd" placeholder="Password" name="password" type="password" value="">
                         </div><br>
-                        <!-- <div class="form-group">
-                            <input class="form-control" placeholder="Re-Enter Password" name="repassword" type="password" value="">
-                        </div> -->
+                
                 
                     <a class="btn btn-lg btn-warning btn-block" type="submit" id="reg">Login</a>
-               <!--  <div  align="center">
+             
                     
                     
-                    <a href="hospitals_list.html" class="btn" target="_blank">Already registered ?</a>
+                    
                     
                     </div> -->
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" value="remember-me" id="remember_me"> Remember Me
-                              <!--  <p>Remember Me&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="checkb" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="warning" data-offstyle="default" data-style="ios" data-size="mini"></p> -->
+                             
                             </label>
                         </div>
 
@@ -182,20 +172,7 @@ function blockuser()
                     $('#pwd').val('');
                 }
  
-                // $('#remember_me').click(function() {
- 
-                    // if ($('#remember_me').is(':checked')) {
-                    //     // save username and password
-                    //     localStorage.usrname = $('#uname').val();
-                    //     localStorage.pass = $('#pwd').val();
-                    //     localStorage.chkbx = $('#remember_me').val();
-                    // } else {
-                    //     localStorage.usrname = '';
-                    //     localStorage.pass = '';
-                    //     localStorage.chkbx = '';
-                    // }
-                // });
-            // });
+     
  
         </script>
 
@@ -232,7 +209,7 @@ function blockuser()
       className: "btn-success",
       callback: function() { 
       // alert(sessionStorage.getItem("secans2"));
-        // Example.show("great success");
+       
        var name = $('#name').val();
        // alert(name);
        if (sessionStorage.getItem("secans2")==name) 
@@ -304,7 +281,7 @@ function hihi(param){
 var str=JSON.stringify(data2);
 var res= str.substring(1,str.length-1);
 var data3=JSON.parse(res);
-// alert(data3.q2);
+
 sessionStorage.setItem("secqun2",data3.q2);
 sessionStorage.setItem("secans2",data3.a2);
 sessionStorage.setItem("secqun1",data3.q1);
@@ -313,7 +290,7 @@ sessionStorage.setItem("username1",data3.username);
 sessionStorage.setItem("mailid",data3.email);
 
 });
-    // return sessionStorage.getItem("secqun2");
+    
     }
 
 

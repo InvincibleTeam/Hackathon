@@ -3,6 +3,8 @@
   <head>
 
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<script src="sweet-alert.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="sweet-alert.css">
 
 	<style>
 body {
@@ -13,34 +15,6 @@ body {
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
 
-<script>
-	
-	$(document).ready(function(){
-
-    $("#reg").click(function(){ alert("Hi");
-        $.get("https://api.mongolab.com/api/1/databases/group3/collections/users?q={'username':'"+document.getElementById("uname").value+"'}&apiKey=5gq1g1JubzqFIgdxCK8oDJ6-ec1wyTI5", function(data,status){
-str=JSON.stringify(data);
-   var res= str.substring(1,str.length-1);
-var data=JSON.parse(res);
-
-if (document.getElementById("pwd").value==data.password) 
-	{
-		// window.location.href = "#.html"
-		alert("Login success");
-	}
-	else
-		{
-			document.getElementById("inccpwd").innerHTML = "Incorrect password";
-		};
-        						
-
-
-        							});
-										});
-											});
-
-
-</script>
 
 
   </head>
@@ -67,17 +41,32 @@ if (document.getElementById("pwd").value==data.password)
 			    		    <input class="form-control" id="email" placeholder="E-mail" name="email" type="text">
 			    		</div>
 			    		<div class="form-group">
-			    			<input class="form-control" id="pwd" placeholder="Enter Password" name="password" type="password" value="">
+			    			<input class="form-control" id="pwd" placeholder="Password" name="password" type="password" value="">
 			    		</div>
 			    		<!-- <div class="form-group">
 			    			<input class="form-control" placeholder="Re-Enter Password" name="repassword" type="password" value="">
 			    		</div> -->
+			    		<div class="form-group">
+			    			<input class="form-control" id="phno" placeholder="Phone number" name="phone number" type="numbers" value="">
+			    		</div>
+			    		<div class="form-group">
+			    			<input class="form-control" id="sequn1" placeholder="Security question 1" name="security question" type="text" value="">
+			    		</div>
+			    		<div class="form-group">
+			    			<input class="form-control" id="seans1" placeholder="Answer" name="security answer" type="text" value="">
+			    		</div>
+			    		<div class="form-group">
+			    			<input class="form-control" id="sequn2" placeholder="Security question 2" name="security question" type="text" value="">
+			    		</div>
+			    		<div class="form-group">
+			    			<input class="form-control" id="seans2" placeholder="Answer" name="security answer" type="text" value="">
+			    		</div>
 				
-					<a class="btn btn-lg btn-warning btn-block" type="submit" id="reg">Register</a>
+					<a class="btn btn-lg btn-warning btn-block" type="submit" id="reg" onclick="register()">Register</a>
 				<div  align="center">
 					
 					
-					<a href="hospitals_list.html" class="btn" target="_blank">Already registered ?</a>
+					<a href="Login.html" class="btn" target="_blank">Already registered ?</a>
 					
 				    </div>
 				    <p ><font color="red" id="inccpwd"></font></p>
@@ -88,7 +77,36 @@ if (document.getElementById("pwd").value==data.password)
 		</div>
 	</div>
 </div>
+<script>
+	function register()
+	{
 
+		if (document.getElementById("uname").value!=""&&document.getElementById("pwd").value!=""&&document.getElementById("email").value!=""&&document.getElementById("phno").value!=""&&document.getElementById("sequn1").value!=""&&document.getElementById("seans1").value!=""&&document.getElementById("sequn2").value!=""&&document.getElementById("seans2").value!="") 
+		{
+			$.ajax( { url: "https://api.mongolab.com/api/1/databases/group3/collections/users?apiKey=5gq1g1JubzqFIgdxCK8oDJ6-ec1wyTI5",
+		  data: JSON.stringify( {   "username": document.getElementById("uname").value,
+    								"password": document.getElementById("pwd").value,
+								    "email": document.getElementById("email").value,
+								    "phone": document.getElementById("phno").value,
+									"q1":document.getElementById("sequn1").value,
+									"a1":document.getElementById("seans1").value,
+									"q2":document.getElementById("sequn2").value,
+								    "a2":document.getElementById("seans2").value } ),
+		  type: "POST",
+		  contentType: "application/json" } );
+		 swal({   title: "Congratulations!",   text: "You registered Successfully!", type: "success",  timer: 1950,   showConfirmButton: false });
+                    setTimeout(function(){window.location.href = "Login.html"},2000);
+				
+			
+		} 
+			else
+				{
+					 swal({   title: "Certain fields are left blank",   text: "please fill them",   timer: 2500,   showConfirmButton: false }); 
+				};
+
+		
+	}
+</script>
 
   </body>
 
