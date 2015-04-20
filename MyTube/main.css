@@ -1,0 +1,23 @@
+html,body{
+  margin:0;
+	
+}
+
+h1,h2{
+  margin:0;
+}
+
+
+
+.Prev{
+  margin-top:10px;
+  float:left;
+}
+.Next{
+  margin-top:10px;
+  float:right;
+}
+
+.Prev,.Next{
+  width:100px;
+}

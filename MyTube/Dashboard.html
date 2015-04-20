@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>My Tube</title>
+    <!--doctype <link rel="stylesheet" type="text/css" href="variableGrid.css">  -->
+    <link rel="stylesheet" type="text/css" href="main.css">      
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="app.js"></script>
+    <script src="sweet-alert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="sweet-alert.css">
+
+     <style>
+    body {
+     background-image: url("4.jpg");
+     background-size: 1375px 680px;
+    }
+
+      #signout{
+    border: 2px solid #a1a1a1;
+    padding: 1px 1px; 
+    background: #CD5C5C;
+    width: 347px;
+    border-radius: 25px;
+    
+  }
+  #recentser{
+    border: 2px solid #a1a1a1;
+    padding: 1px 1px; 
+    background: #FFFF99;
+    width: 247px;
+    border-radius: 25px;
+    
+  }
+ #out{
+    border: 2px solid #a1a1a1;
+    padding: 1px 1px; 
+    /*background: #CD5C5C;*/
+    width: 117px;
+    border-radius: 25px;
+    
+  }
+
+ 
+</style>
+  </head>
+  <div id="head" class="header">
+
+  </div>
+  <nav class="grid_12" align='center'>
+        <img class="PushedBot Logo" src="youtube.png" style="width:150px;height:120px"/>
+          <div class="form-group"><input type="text" name="input" id="input" placeholder="Search for a video here"required>
+	      <input class="btn btn-sm btn-warning" type="submit" name="submit" id="submit" value="search">
+	  </div>
+	  <p class="feedback"></p>
+      </nav>
+  <table width="100%" border="0" >
+  <col width="80%">
+  <col width="20%">
+  <tr><th>
+  <body>
+    <div class="Wrapper container_12 clearfix">
+      <div class="Video grid_12">
+      </div>
+
+      <div id="test">
+        <button class="Prev btn btn-sm btn-warning" name="Prev" style="float: left; ">Previous</button>
+        <button class="Next btn btn-sm btn-warning" name="Next" style="float: right; ">Next</button>
+      </div>
+    </div>
+  </body> </th>
+  <th valign="top"> <div id="recentser"><table align='center'><tr><th>Recent Searches</th></tr><tr><th><div align="left" id="recent" class="se"></div></div></th></tr></table></th></tr>
+  </table>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="sweet-alert.min.js"></script>
+    <script src="bootbox.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="sweet-alert.css">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+
+    <style>
+    body {
+     background-image: url("1.jpg");
+     background-size: 1375px 680px;
+    }
+    .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
+    .toggle.ios .toggle-handle { border-radius: 20px; }
+</style>
+
+
+
+
+<script>
+    
+    $(document).ready(function(){var count=0;
+
+    $("#reg").click(function(){
+     //  if($('#checkb').prop('checked')) // If user checked remember me check box
+     // {
+      
+     //            var emaill=document.getElementById("uname").value; // Get entered username or email
+     //            //  Set username on cookie when login form submit.
+     //            $.cookie("username", emaill, { expires: 7 });  // Remember username for 1 year.
+     //            alert($.cookie("username"));
+     // }
+
+         
+             if (document.getElementById("pwd").value=="" && document.getElementById("uname").value=="") 
+             {
+                swal("Email and Password fields can't be empty!", "please try again!", "warning");
+
+             };
+             if (document.getElementById("pwd").value!="" && document.getElementById("uname").value=="")
+             {
+                swal("Email field can't be empty!", "please try again!", "warning");
+             };
+
+            if (document.getElementById("pwd").value=="" && document.getElementById("uname").value!="") 
+            {
+                swal("Password field can't be empty!", "please try again!", "warning");
+            };
+
+        $.get("https://api.mongolab.com/api/1/databases/group3/collections/users?q={'email':'"+document.getElementById("uname").value+"'}&apiKey=5gq1g1JubzqFIgdxCK8oDJ6-ec1wyTI5", function(data,status){
+            
+str=JSON.stringify(data);
+var abc= str;
+
+            if (abc=="[]"&&document.getElementById("uname").value!=""&&document.getElementById("pwd").value!="") 
+            {
+            sweetAlert("Oops...", "no such Email exists!", "error");
+            
+            };
+
+var res= str.substring(1,str.length-1);
+var data1=JSON.parse(res);
+sessionStorage.setItem("securityquestion1", data1.q1);
+sessionStorage.setItem("securityanswer1", data1.a1);
+sessionStorage.setItem("username1", data1.username);
+
+// alert(sessionStorage.getItem("securityquestion1"));
+
+
+            if (document.getElementById("pwd").value==data1.password && document.getElementById("uname").value==data1.email) 
+            {
+              if ($('#remember_me').is(':checked')) {
+                        // save username and password
+                        localStorage.usrname = $('#uname').val();
+                        localStorage.pass = $('#pwd').val();
+                        localStorage.chkbx = $('#remember_me').val();
+                    } else {
+                        localStorage.usrname = '';
+                        localStorage.pass = '';
+                        localStorage.chkbx = '';
+                    }
+
+                    swal({   title: "Congratulations!",   text: "Login Successful!", type: "success",  timer: 1950,   showConfirmButton: false });
+                    setTimeout(function(){window.location.href = "Dashboard.html"},2000);
+            };
+  
+            if (document.getElementById("pwd").value!=data1.password && document.getElementById("uname").value==data1.email && document.getElementById("pwd").value!="")
+            {
+             count=count+1;
+             if (count>=3) {
+              blockuser();
+              swal({   title: "Your account is blocked",   text: "", type: "error",  timer: 1950,   showConfirmButton: false });
+              setTimeout(function(){window.location.href = "Login.html"},2000);
+             }else{
+            sweetAlert("Oops...", "You entered wrong password!", "error");
+            document.getElementById("inccpwd").innerHTML = "Incorrect password";
+             }; };
+
+
+           
+                
+
+
+                                    });
+                                        });
+                                            });
+function blockuser()
+{
+ $.ajax( { url: 'https://api.mongolab.com/api/1/databases/group3/collections/users?apiKey=5gq1g1JubzqFIgdxCK8oDJ6-ec1wyTI5&q={"username":"'+sessionStorage.getItem("username1")+'"}',
+    data: JSON.stringify( { "$set" : { "email": "" } } ),
+    type: "PUT",
+    contentType: "application/json" } );
+
+}
+
+</script>
+
+
+  </head>
+
+  <body>
+ 
+
+
+<div class="container" style="padding-top: 100px;">
+    <div class="row vertical-offset-100">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Login Here</h3>
+                </div>
+                <div class="panel-body">
+                    <form accept-charset="UTF-8" role="form">
+                    <fieldset>
+                    
+                    <div class="form-group">
+                            <input class="form-control" id="uname" placeholder="Email" name="Email" type="text" required>
+                        </div><br>
+              <!--           <div class="form-group">
+                            <input class="form-control" id="email" placeholder="E-mail" name="email" type="text">
+                        </div> -->
+                        <div class="form-group">
+                            <input class="form-control" id="pwd" placeholder="Password" name="password" type="password" value="">
+                        </div><br>
+                        <!-- <div class="form-group">
+                            <input class="form-control" placeholder="Re-Enter Password" name="repassword" type="password" value="">
+                        </div> -->
+                
+                    <a class="btn btn-lg btn-warning btn-block" type="submit" id="reg">Login</a>
+               <!--  <div  align="center">
+                    
+                    
+                    <a href="hospitals_list.html" class="btn" target="_blank">Already registered ?</a>
+                    
+                    </div> -->
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="remember-me" id="remember_me"> Remember Me
+                              <!--  <p>Remember Me&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="checkb" type="checkbox" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="warning" data-offstyle="default" data-style="ios" data-size="mini"></p> -->
+                            </label>
+                        </div>
+
+           <script>
+            // $(function() {
+ 
+                if (localStorage.chkbx && localStorage.chkbx != '') {
+                    // $('#remember_me').attr('checked', 'checked');
+                    // $('#uname').val(localStorage.usrname);
+                    // $('#pwd').val(localStorage.pass);
+                    window.location.href = "Dashboard.html"
+
+                } else {
+                    $('#remember_me').removeAttr('checked');
+                    $('#uname').val('');
+                    $('#pwd').val('');
+                }
+ 
+                // $('#remember_me').click(function() {
+ 
+                    // if ($('#remember_me').is(':checked')) {
+                    //     // save username and password
+                    //     localStorage.usrname = $('#uname').val();
+                    //     localStorage.pass = $('#pwd').val();
+                    //     localStorage.chkbx = $('#remember_me').val();
+                    // } else {
+                    //     localStorage.usrname = '';
+                    //     localStorage.pass = '';
+                    //     localStorage.chkbx = '';
+                    // }
+                // });
+            // });
+ 
+        </script>
+
+
+
+
+
+
+
+
+
+
+                            <div>
+                                <a onclick='fgpwd()'>Forgot your password?</a>
+                            </div>
+                            <script>
+                            function fgpwd(){
+                                swal({   title: "Forgot your password?",   text: "You can reset it by answering security questions!",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "Yes, proceed!",   closeOnConfirm: false }, function(){   swal({   title: "Please enter your Email",    type: "input",   showCancelButton: true,   closeOnConfirm: false,   animation: "slide-from-top",   inputPlaceholder: "Email" }, function(inputValue){   if (inputValue === false) return false;      if (inputValue === "") {     swal.showInputError("You need to enter Email!");     return false   } 
+                                hihi(inputValue);
+                                    // alert(sessionStorage.getItem("str"));
+
+                               
+                                   swal({   title: "Please answer the security question",   text: "",   timer: 1500,   showConfirmButton: false }); 
+                                   setTimeout(function(){callQun();},2000);
+
+                                           
+
+                              function callQun(){   bootbox.dialog({
+  title: "Security question",
+  message: sessionStorage.getItem("secqun2")+'<br>&nbsp;&nbsp;&nbsp;&nbsp;<input id="name" name="name" type="text" placeholder="Your answer" class="form-control input-md">',
+  buttons: {
+    success: {
+      label: "Submit!",
+      className: "btn-success",
+      callback: function() { 
+      // alert(sessionStorage.getItem("secans2"));
+        // Example.show("great success");
+       var name = $('#name').val();
+       // alert(name);
+       if (sessionStorage.getItem("secans2")==name) 
+        {
+
+            bootbox.dialog({
+                title: "Reset password",
+                message: '<input id="passwd" name="password" type="password" placeholder="New password" class="form-control input-md"><br><input id="passwd1" name="password" type="password" placeholder="Re-Enter password" class="form-control input-md">',
+                buttons: {
+                    success: {
+                        label: "Submit",
+                        className: "btn-success",
+                        callback: function () {
+                            var pwd1 = $('#passwd').val();
+                            var pwd2 = $('#passwd1').val();
+                            if (pwd1==pwd2) 
+                             {
+                              // alert(pwd1);
+                              sessionStorage.setItem("paswd",pwd1)
+                              resetpwd();
+                                swal({   title: "Password Reset successful",   text: "Login with new password", type: "success",  timer: 2950,   showConfirmButton: false });
+                    setTimeout(function(){window.location.href = "Login.html"},3000);
+                             }
+                              else
+                               {
+                                // alert("password reset failed");
+                                 swal({   title: "Password mismatch",   text: "try again later", type: "error",  timer: 2950,   showConfirmButton: false });
+                                 setTimeout(function(){window.location.href = "Login.html"},3000);
+                  
+                               };
+                       
+                        }
+                    }
+                }
+            }
+        );
+
+        }else{swal({   title: "Wrong answer!",   text: "Please try again later!", type: "error",  timer: 1950,   showConfirmButton: false });
+                    setTimeout(function(){window.location.href = "Login.html"},2000);};
+      }
+    }
+
+  }
+});  }
+
+}); });
+                            }
+                            
+                            </script>
+
+                    <div style="padding-top: 10px;" align="center">
+                    <p class="change_link">
+                    Not a member yet ?
+                    <a href="signup.html" class="btn btn-xs btn-warning">Join us</a>
+                    </p>
+                    </div>
+
+                    <p ><font color="red" id="inccpwd"></font></p>
+             </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function hihi(param){
+    $.get("https://api.mongolab.com/api/1/databases/group3/collections/users?q={'email':'"+param+"'}&apiKey=5gq1g1JubzqFIgdxCK8oDJ6-ec1wyTI5", function(data2,status){
+var str=JSON.stringify(data2);
+var res= str.substring(1,str.length-1);
+var data3=JSON.parse(res);
+// alert(data3.q2);
+sessionStorage.setItem("secqun2",data3.q2);
+sessionStorage.setItem("secans2",data3.a2);
+sessionStorage.setItem("secqun1",data3.q1);
+sessionStorage.setItem("secans1",data3.a1);
+sessionStorage.setItem("username1",data3.username);
+sessionStorage.setItem("mailid",data3.email);
+
+});
+    // return sessionStorage.getItem("secqun2");
+    }
+
+
+function resetpwd()
+{
+$.ajax( { url: 'https://api.mongolab.com/api/1/databases/group3/collections/users?apiKey=5gq1g1JubzqFIgdxCK8oDJ6-ec1wyTI5&q={"username":"'+sessionStorage.getItem("username1")+'"}',
+    data: JSON.stringify( { "$set" : { "password": sessionStorage.getItem("paswd") } } ),
+    type: "PUT",
+    contentType: "application/json" } );
+}
+
+
+</script>
+
+  </body>
+
+</html>
+
+
+
+
+
+
+

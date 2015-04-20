@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+	<style>
+body {
+    background-image: url("1.jpg");
+  background-size: 1375px 680px;
+}
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+
+<script>
+	
+	$(document).ready(function(){
+
+    $("#reg").click(function(){ alert("Hi");
+        $.get("https://api.mongolab.com/api/1/databases/group3/collections/users?q={'username':'"+document.getElementById("uname").value+"'}&apiKey=5gq1g1JubzqFIgdxCK8oDJ6-ec1wyTI5", function(data,status){
+str=JSON.stringify(data);
+   var res= str.substring(1,str.length-1);
+var data=JSON.parse(res);
+
+if (document.getElementById("pwd").value==data.password) 
+	{
+		// window.location.href = "#.html"
+		alert("Login success");
+	}
+	else
+		{
+			document.getElementById("inccpwd").innerHTML = "Incorrect password";
+		};
+        						
+
+
+        							});
+										});
+											});
+
+
+</script>
+
+
+  </head>
+
+  <body>
+ 
+
+
+<div class="container" style="padding-top: 100px;">
+    <div class="row vertical-offset-100">
+    	<div class="col-md-4 col-md-offset-4">
+    		<div class="panel panel-default">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title">Register Here</h3>
+			 	</div>
+			  	<div class="panel-body">
+			    	<form accept-charset="UTF-8" role="form">
+                    <fieldset>
+					
+					<div class="form-group">
+			    		    <input class="form-control" id="uname" placeholder="Username" name="username" type="text">
+			    		</div>
+			    	  	<div class="form-group">
+			    		    <input class="form-control" id="email" placeholder="E-mail" name="email" type="text">
+			    		</div>
+			    		<div class="form-group">
+			    			<input class="form-control" id="pwd" placeholder="Enter Password" name="password" type="password" value="">
+			    		</div>
+			    		<!-- <div class="form-group">
+			    			<input class="form-control" placeholder="Re-Enter Password" name="repassword" type="password" value="">
+			    		</div> -->
+				
+					<a class="btn btn-lg btn-warning btn-block" type="submit" id="reg">Register</a>
+				<div  align="center">
+					
+					
+					<a href="hospitals_list.html" class="btn" target="_blank">Already registered ?</a>
+					
+				    </div>
+				    <p ><font color="red" id="inccpwd"></font></p>
+			 </fieldset>
+			      	</form>
+			    </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+  </body>
+
+</html>
